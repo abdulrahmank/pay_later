@@ -21,9 +21,9 @@ func TestPerformNewTransaction(t *testing.T) {
 	cmd.UserDao = uDao
 	cmd.TxnDao = tDao
 
-	tDao.EXPECT().CreateTxnEntry("u1", "m1", 900).MinTimes(1)
+	tDao.EXPECT().CreateTxnEntry("u1", "m1", float32(900)).MinTimes(1)
 	uDao.EXPECT().GetUser("u1").Return(&user)
-	uDao.EXPECT().IncrementDues(&user, 900).Times(1)
+	uDao.EXPECT().IncrementDues(&user, float32(900)).Times(1)
 
 	PerformTransaction(nil, []string{userName, merchantName, txnAmt})
 }

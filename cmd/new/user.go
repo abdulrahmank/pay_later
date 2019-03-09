@@ -20,9 +20,9 @@ func init() {
 func AddNewUser(_ *cobra.Command, arg []string) {
 	userName := arg[0]
 	emailId := arg[1]
-	if creditLimit, err := strconv.Atoi(arg[2]); err != nil {
+	if creditLimit, err := strconv.ParseFloat(arg[2], 32); err != nil {
 		log.Printf("Invalid input")
 	} else {
-		cmd.UserDao.SaveUser(userName, emailId, creditLimit)
+		cmd.UserDao.SaveUser(userName, emailId, float32(creditLimit))
 	}
 }

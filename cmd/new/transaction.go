@@ -21,13 +21,14 @@ func PerformTransaction(_ *cobra.Command, args []string) {
 	userName := args[0]
 	user := cmd.UserDao.GetUser(userName)
 	merchantName := args[1]
-	amt, _ := strconv.Atoi(args[2])
+	amt, _ := strconv.ParseFloat(args[2], 32)
+	amtf := float32(amt)
 
-	if user.CreditLimit-user.Dues >= amt {
-		if e := cmd.TxnDao.CreateTxnEntry(userName, merchantName, amt); e != nil {
+	if user.CreditLimit-user.Dues >= amtf {
+		if e := cmd.TxnDao.CreateTxnEntry(userName, merchantName, amtf); e != nil {
 			log.Fatal(e)
 		} else {
-			cmd.UserDao.IncrementDues(user, amt)
+			cmd.UserDao.IncrementDues(user, amtf)
 		}
 	}
 

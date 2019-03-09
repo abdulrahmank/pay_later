@@ -11,7 +11,7 @@ func TestAddNewUser(t *testing.T) {
 	ctrl := gomock.NewController(t)
 	defer ctrl.Finish()
 	mockDao := dao.NewMockUserDao(ctrl)
-	mockDao.EXPECT().SaveUser("u1", "u1@email.in", 1000).
+	mockDao.EXPECT().SaveUser("u1", "u1@email.in", float32(1000)).
 		Times(1)
 	cmd.UserDao = mockDao
 

@@ -14,9 +14,9 @@ func TestPayback(t *testing.T) {
 	userDao := dao.NewMockUserDao(ctrl)
 	cmd.UserDao = userDao
 
-	user := model.User{Name: "u1", Dues: 900}
+	user := model.User{Name: "u1", Dues: float32(900)}
 	userDao.EXPECT().GetUser("u1").Return(&user)
-	userDao.EXPECT().IncrementDues(&user, -700).Times(1)
+	userDao.EXPECT().IncrementDues(&user, float32(-700)).Times(1)
 
 	Payback(nil, []string{"u1", "700"})
 }

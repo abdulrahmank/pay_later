@@ -17,7 +17,7 @@ func TestShouldAddTransactionEntry(t *testing.T) {
 	t.Run("Should be able to save new transaction", func(t *testing.T) {
 		userName := "u1"
 		merchantName := "m1"
-		txnAmt := 300
+		txnAmt := float32(300)
 		dao := TxnDaoImpl{}
 
 		dao.CreateTxnEntry(userName, merchantName, txnAmt)

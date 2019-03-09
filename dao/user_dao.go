@@ -7,15 +7,15 @@ import (
 )
 
 type UserDao interface {
-	SaveUser(name, mailId string, creditLimit int) error
+	SaveUser(name, mailId string, creditLimit float32) error
 	GetUser(name string) *model.User
-	IncrementDues(user *model.User, txnAmt int)
+	IncrementDues(user *model.User, txnAmt float32)
 }
 
 type UserDaoImpl struct{}
 
-func (u *UserDaoImpl) SaveUser(name, mailId string, creditLimit int) error {
-	if _, e := db.Exec(fmt.Sprintf("INSERT INTO users (name, mailid, creditlimit, dues) VALUES ('%s', '%s', %d, 0)",
+func (u *UserDaoImpl) SaveUser(name, mailId string, creditLimit float32) error {
+	if _, e := db.Exec(fmt.Sprintf("INSERT INTO users (name, mailid, creditlimit, dues) VALUES ('%s', '%s', %f, 0)",
 		name, mailId, creditLimit)); e != nil {
 		return e
 	}
@@ -36,8 +36,8 @@ func (u *UserDaoImpl) GetUser(name string) *model.User {
 	return &user
 }
 
-func (u *UserDaoImpl) IncrementDues(user *model.User, txnAmt int) {
-	_, e := db.Exec(fmt.Sprintf("UPDATE users SET dues = %d WHERE name = '%s'", user.Dues + txnAmt, user.Name))
+func (u *UserDaoImpl) IncrementDues(user *model.User, txnAmt float32) {
+	_, e := db.Exec(fmt.Sprintf("UPDATE users SET dues = %f WHERE name = '%s'", user.Dues + txnAmt, user.Name))
 	if e != nil {
 		log.Fatal(e)
 	}

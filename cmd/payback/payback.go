@@ -14,7 +14,7 @@ var CmdPayback = &cobra.Command{
 
 func Payback(_ *cobra.Command, args []string) {
 	user := cmd.UserDao.GetUser(args[0])
-	amt, _ := strconv.Atoi(args[1])
+	amt, _ := strconv.ParseFloat(args[1], 32)
 
-	cmd.UserDao.IncrementDues(user, -1*amt)
+	cmd.UserDao.IncrementDues(user, float32(-1 * amt))
 }

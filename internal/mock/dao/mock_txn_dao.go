@@ -33,7 +33,7 @@ func (m *MockTxnDao) EXPECT() *MockTxnDaoMockRecorder {
 }
 
 // CreateTxnEntry mocks base method
-func (m *MockTxnDao) CreateTxnEntry(userName, merchantName string, txnAmt int) error {
+func (m *MockTxnDao) CreateTxnEntry(userName, merchantName string, txnAmt float32) error {
 	ret := m.ctrl.Call(m, "CreateTxnEntry", userName, merchantName, txnAmt)
 	ret0, _ := ret[0].(error)
 	return ret0

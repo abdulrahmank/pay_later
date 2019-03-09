@@ -53,7 +53,7 @@ func TestShouldGetUser(t *testing.T) {
 		t.Errorf("Expected this %s but was %s", "u1@email.in", user.MailId)
 	}
 	if user.CreditLimit != 1000 {
-		t.Errorf("Expected this %d but was %d", 1000, user.CreditLimit)
+		t.Errorf("Expected this %d but was %f", 1000, user.CreditLimit)
 	}
 }
 
@@ -65,6 +65,6 @@ func TestShouldIncrementDueAmount(t *testing.T) {
 
 	user := dao.GetUser("u1")
 	if user.Dues != 400 {
-		t.Errorf("Expected %d but was %d", 200, user.Dues)
+		t.Errorf("Expected %d but was %f", 200, user.Dues)
 	}
 }

@@ -34,7 +34,7 @@ func (m *MockUserDao) EXPECT() *MockUserDaoMockRecorder {
 }
 
 // SaveUser mocks base method
-func (m *MockUserDao) SaveUser(name, mailId string, creditLimit int) error {
+func (m *MockUserDao) SaveUser(name, mailId string, creditLimit float32) error {
 	ret := m.ctrl.Call(m, "SaveUser", name, mailId, creditLimit)
 	ret0, _ := ret[0].(error)
 	return ret0
@@ -58,7 +58,7 @@ func (mr *MockUserDaoMockRecorder) GetUser(name interface{}) *gomock.Call {
 }
 
 // IncrementDues mocks base method
-func (m *MockUserDao) IncrementDues(user *model.User, txnAmt int) {
+func (m *MockUserDao) IncrementDues(user *model.User, txnAmt float32) {
 	m.ctrl.Call(m, "IncrementDues", user, txnAmt)
 }
 
