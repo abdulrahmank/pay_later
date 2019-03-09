@@ -7,6 +7,7 @@ import (
 
 var userDao dao.UserDao
 var merchantDao dao.MerchantDao
+var txnDao dao.TxnDao
 
 var cmdNew = &cobra.Command{
 	Use:   "new",
@@ -16,6 +17,7 @@ var cmdNew = &cobra.Command{
 func init() {
 	userDao = &dao.UserDaoImpl{}
 	merchantDao = &dao.MerchantDaoImpl{}
+	txnDao = &dao.TxnDaoImpl{}
 }
 
 func Execute() {
