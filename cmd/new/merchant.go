@@ -15,7 +15,7 @@ var cmdNewMerchant = &cobra.Command{
 }
 
 func init() {
-	cmdNew.AddCommand(cmdNewMerchant)
+	CmdNew.AddCommand(cmdNewMerchant)
 }
 
 func AddNewMerchant(_ *cobra.Command, arg []string) {

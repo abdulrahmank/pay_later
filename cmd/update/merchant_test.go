@@ -1,4 +1,4 @@
-package cmd
+package update
 
 import (
 	"github.com/abdulrahmank/pay_later/cmd"

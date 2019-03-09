@@ -6,7 +6,7 @@ import (
 	"strconv"
 )
 
-var cmdPayback = &cobra.Command{
+var CmdPayback = &cobra.Command{
 	Use:   "payback",
 	Short: "Command to payback dues",
 	Run:   Payback,

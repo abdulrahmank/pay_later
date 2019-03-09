@@ -14,7 +14,7 @@ var cmdNewTxn = &cobra.Command{
 }
 
 func init() {
-	cmdNew.AddCommand(cmdNewTxn)
+	CmdNew.AddCommand(cmdNewTxn)
 }
 
 func PerformTransaction(_ *cobra.Command, args []string) {

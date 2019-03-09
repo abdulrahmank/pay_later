@@ -1,9 +1,9 @@
 package main
 
 import (
-	"github.com/abdulrahmank/pay_later/cmd/new"
+	"github.com/abdulrahmank/pay_later/cmd/common"
 )
 
 func main() {
-	cmd.Execute()
+	common.Execute()
 }

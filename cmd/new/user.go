@@ -14,7 +14,7 @@ var cmdNewUser = &cobra.Command{
 }
 
 func init() {
-	cmdNew.AddCommand(cmdNewUser)
+	CmdNew.AddCommand(cmdNewUser)
 }
 
 func AddNewUser(_ *cobra.Command, arg []string) {

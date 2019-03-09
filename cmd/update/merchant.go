@@ -1,4 +1,4 @@
-package cmd
+package update
 
 import (
 	"github.com/abdulrahmank/pay_later/cmd"
@@ -14,7 +14,7 @@ var cmdUpdateMerchant = &cobra.Command{
 }
 
 func init() {
-	cmdUpdate.AddCommand(cmdUpdateMerchant)
+	CmdUpdate.AddCommand(cmdUpdateMerchant)
 }
 
 func Update(_ *cobra.Command, args []string) {
