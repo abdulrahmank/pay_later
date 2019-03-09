@@ -57,6 +57,29 @@ func TestShouldGetUser(t *testing.T) {
 	}
 }
 
+func TestShouldGetAllUsers(t *testing.T) {
+	dao := UserDaoImpl{}
+	names := []string{"u1", "u2"}
+	mailIds := []string{"u1@email.in", "u2@email.in"}
+	creditLimits := []float32{1000, 1000}
+	dao.SaveUser("u1", "u1@email.in", 1000)
+	dao.SaveUser("u2", "u2@email.in", 1000)
+
+	users := dao.GetAllUsers()
+
+	for i, user := range users {
+		if user.Name != names[i] {
+			t.Errorf("Expected this %s but was %s", names[i], user.Name)
+		}
+		if user.MailId != mailIds[i] {
+			t.Errorf("Expected this %s but was %s", mailIds[i], user.MailId)
+		}
+		if user.CreditLimit != creditLimits[i] {
+			t.Errorf("Expected this %d but was %f", creditLimits[i], user.CreditLimit)
+		}
+	}
+}
+
 func TestShouldIncrementDueAmount(t *testing.T) {
 	dao := UserDaoImpl{}
 	dao.SaveUser("u1", "u1@email.in", 1000)

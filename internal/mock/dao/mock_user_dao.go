@@ -66,3 +66,15 @@ func (m *MockUserDao) IncrementDues(user *model.User, txnAmt float32) {
 func (mr *MockUserDaoMockRecorder) IncrementDues(user, txnAmt interface{}) *gomock.Call {
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "IncrementDues", reflect.TypeOf((*MockUserDao)(nil).IncrementDues), user, txnAmt)
 }
+
+// GetAllUsers mocks base method
+func (m *MockUserDao) GetAllUsers() []*model.User {
+	ret := m.ctrl.Call(m, "GetAllUsers")
+	ret0, _ := ret[0].([]*model.User)
+	return ret0
+}
+
+// GetAllUsers indicates an expected call of GetAllUsers
+func (mr *MockUserDaoMockRecorder) GetAllUsers() *gomock.Call {
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetAllUsers", reflect.TypeOf((*MockUserDao)(nil).GetAllUsers))
+}

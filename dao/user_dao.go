@@ -10,6 +10,7 @@ type UserDao interface {
 	SaveUser(name, mailId string, creditLimit float32) error
 	GetUser(name string) *model.User
 	IncrementDues(user *model.User, txnAmt float32)
+	GetAllUsers() []*model.User
 }
 
 type UserDaoImpl struct{}
@@ -37,8 +38,26 @@ func (u *UserDaoImpl) GetUser(name string) *model.User {
 }
 
 func (u *UserDaoImpl) IncrementDues(user *model.User, txnAmt float32) {
-	_, e := db.Exec(fmt.Sprintf("UPDATE users SET dues = %f WHERE name = '%s'", user.Dues + txnAmt, user.Name))
+	_, e := db.Exec(fmt.Sprintf("UPDATE users SET dues = %f WHERE name = '%s'", user.Dues+txnAmt, user.Name))
 	if e != nil {
 		log.Fatal(e)
 	}
+}
+
+func (u *UserDaoImpl) GetAllUsers() []*model.User {
+	rows, e := db.Query(fmt.Sprintf("SELECT * FROM users"))
+	if e != nil {
+		return nil
+	}
+	users := make([]*model.User, 0)
+	for rows.Next() {
+		var user model.User
+		if err := rows.Scan(&user.Name, &user.MailId, &user.CreditLimit, &user.Dues); err != nil {
+			log.Fatal(err)
+			return nil
+		}
+		users = append(users, &user)
+	}
+
+	return users
 }
