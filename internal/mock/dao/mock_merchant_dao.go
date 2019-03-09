@@ -43,3 +43,15 @@ func (m *MockMerchantDao) SaveMerchant(name string, discount int) error {
 func (mr *MockMerchantDaoMockRecorder) SaveMerchant(name, discount interface{}) *gomock.Call {
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "SaveMerchant", reflect.TypeOf((*MockMerchantDao)(nil).SaveMerchant), name, discount)
 }
+
+// UpdateMerchant mocks base method
+func (m *MockMerchantDao) UpdateMerchant(name string, discount int) error {
+	ret := m.ctrl.Call(m, "UpdateMerchant", name, discount)
+	ret0, _ := ret[0].(error)
+	return ret0
+}
+
+// UpdateMerchant indicates an expected call of UpdateMerchant
+func (mr *MockMerchantDaoMockRecorder) UpdateMerchant(name, discount interface{}) *gomock.Call {
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "UpdateMerchant", reflect.TypeOf((*MockMerchantDao)(nil).UpdateMerchant), name, discount)
+}

@@ -5,6 +5,7 @@
 package dao
 
 import (
+	model "github.com/abdulrahmank/pay_later/model"
 	gomock "github.com/golang/mock/gomock"
 	reflect "reflect"
 )
@@ -42,4 +43,26 @@ func (m *MockUserDao) SaveUser(name, mailId string, creditLimit int) error {
 // SaveUser indicates an expected call of SaveUser
 func (mr *MockUserDaoMockRecorder) SaveUser(name, mailId, creditLimit interface{}) *gomock.Call {
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "SaveUser", reflect.TypeOf((*MockUserDao)(nil).SaveUser), name, mailId, creditLimit)
+}
+
+// GetUser mocks base method
+func (m *MockUserDao) GetUser(name string) *model.User {
+	ret := m.ctrl.Call(m, "GetUser", name)
+	ret0, _ := ret[0].(*model.User)
+	return ret0
+}
+
+// GetUser indicates an expected call of GetUser
+func (mr *MockUserDaoMockRecorder) GetUser(name interface{}) *gomock.Call {
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetUser", reflect.TypeOf((*MockUserDao)(nil).GetUser), name)
+}
+
+// IncrementDues mocks base method
+func (m *MockUserDao) IncrementDues(user *model.User, txnAmt int) {
+	m.ctrl.Call(m, "IncrementDues", user, txnAmt)
+}
+
+// IncrementDues indicates an expected call of IncrementDues
+func (mr *MockUserDaoMockRecorder) IncrementDues(user, txnAmt interface{}) *gomock.Call {
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "IncrementDues", reflect.TypeOf((*MockUserDao)(nil).IncrementDues), user, txnAmt)
 }
