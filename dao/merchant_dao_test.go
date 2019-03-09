@@ -51,3 +51,33 @@ func TestShouldUpdateMerchantDiscounts(t *testing.T) {
 		t.Errorf("Expected %d, but was %d", 20, discount)
 	}
 }
+
+func TestGetMerchantDetails(t *testing.T) {
+	dao := MerchantDaoImpl{}
+	_ = dao.SaveMerchant("m1", 10)
+	_, e := db.Exec("Insert into txn (user_name, merchant_name, amt) values ('u1', 'm1', 100)")
+	if e != nil {
+		log.Fatal(e)
+	}
+	db.Exec("Insert into txn (user_name, merchant_name, amt) values ('u1', 'm1', 300)")
+	db.Exec("Insert into txn (user_name, merchant_name, amt) values ('u1', 'm1', 500)")
+
+	merchantDetails := dao.GetMerchantDetails("m1")
+
+	if merchantDetails.Name != "m1" {
+		t.Errorf("Expected %s, but was %s", "m1", merchantDetails.Name)
+	}
+	if merchantDetails.Discount != 10 {
+		t.Errorf("Expected %d, but was %d", 10, merchantDetails.Discount)
+	}
+
+	expected := []int{100, 300, 500}
+	for i, val := range expected {
+		if merchantDetails.Txns[i] != val {
+			t.Errorf("Expected %v, but was %v", "m1", merchantDetails.Txns)
+			break
+		}
+	}
+	db.Exec("truncate merchants")
+	db.Exec("truncate txn")
+}

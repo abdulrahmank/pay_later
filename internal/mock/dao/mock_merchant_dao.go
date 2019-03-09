@@ -5,6 +5,7 @@
 package dao
 
 import (
+	model "github.com/abdulrahmank/pay_later/model"
 	gomock "github.com/golang/mock/gomock"
 	reflect "reflect"
 )
@@ -54,4 +55,16 @@ func (m *MockMerchantDao) UpdateMerchant(name string, discount int) error {
 // UpdateMerchant indicates an expected call of UpdateMerchant
 func (mr *MockMerchantDaoMockRecorder) UpdateMerchant(name, discount interface{}) *gomock.Call {
 	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "UpdateMerchant", reflect.TypeOf((*MockMerchantDao)(nil).UpdateMerchant), name, discount)
+}
+
+// GetMerchantDetails mocks base method
+func (m *MockMerchantDao) GetMerchantDetails(name string) *model.Merchant {
+	ret := m.ctrl.Call(m, "GetMerchantDetails", name)
+	ret0, _ := ret[0].(*model.Merchant)
+	return ret0
+}
+
+// GetMerchantDetails indicates an expected call of GetMerchantDetails
+func (mr *MockMerchantDaoMockRecorder) GetMerchantDetails(name interface{}) *gomock.Call {
+	return mr.mock.ctrl.RecordCallWithMethodType(mr.mock, "GetMerchantDetails", reflect.TypeOf((*MockMerchantDao)(nil).GetMerchantDetails), name)
 }
