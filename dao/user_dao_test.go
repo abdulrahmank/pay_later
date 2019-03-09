@@ -61,7 +61,7 @@ func TestShouldIncrementDueAmount(t *testing.T) {
 	dao := UserDaoImpl{}
 	dao.SaveUser("u1", "u1@email.in", 1000)
 
-	dao.IncrementDues(model.User{Name:"u1", Dues:200}, 200)
+	dao.IncrementDues(&model.User{Name:"u1", Dues:200}, 200)
 
 	user := dao.GetUser("u1")
 	if user.Dues != 400 {

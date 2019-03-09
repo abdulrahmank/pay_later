@@ -1,6 +1,7 @@
 package cmd
 
 import (
+	"github.com/abdulrahmank/pay_later/cmd"
 	"github.com/spf13/cobra"
 	"log"
 	"strconv"
@@ -24,6 +25,6 @@ func AddNewMerchant(_ *cobra.Command, arg []string) {
 	if discountNum, err := strconv.Atoi(discount); err != nil {
 		log.Println("Invalid discount")
 	} else {
-		merchantDao.SaveMerchant(merchantName, discountNum)
+		cmd.MerchantDao.SaveMerchant(merchantName, discountNum)
 	}
 }

@@ -1,6 +1,7 @@
 package cmd
 
 import (
+	"github.com/abdulrahmank/pay_later/cmd"
 	"github.com/abdulrahmank/pay_later/internal/mock/dao"
 	"github.com/abdulrahmank/pay_later/model"
 	"github.com/golang/mock/gomock"
@@ -17,8 +18,8 @@ func TestPerformNewTransaction(t *testing.T) {
 	tDao := dao.NewMockTxnDao(ctrl)
 	uDao := dao.NewMockUserDao(ctrl)
 	user := model.User{Name: "u1", MailId: "u1@email.in", CreditLimit: 1000, Dues: 100}
-	userDao = uDao
-	txnDao = tDao
+	cmd.UserDao = uDao
+	cmd.TxnDao = tDao
 
 	tDao.EXPECT().CreateTxnEntry("u1", "m1", 900).MinTimes(1)
 	uDao.EXPECT().GetUser("u1").Return(&user)
@@ -37,8 +38,8 @@ func TestShouldNotPerformNewTransactionIfLowUserCredit(t *testing.T) {
 	tDao := dao.NewMockTxnDao(ctrl)
 	uDao := dao.NewMockUserDao(ctrl)
 	user := &model.User{Name: "u1", MailId: "u1@email.in", CreditLimit: 1000, Dues: 200}
-	userDao = uDao
-	txnDao = tDao
+	cmd.UserDao = uDao
+	cmd.TxnDao = tDao
 
 	tDao.EXPECT().CreateTxnEntry(gomock.Any(), gomock.Any(), gomock.Any()).Times(0)
 	uDao.EXPECT().GetUser("u1").Return(user)

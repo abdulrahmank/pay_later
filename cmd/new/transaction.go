@@ -1,6 +1,7 @@
 package cmd
 
 import (
+	"github.com/abdulrahmank/pay_later/cmd"
 	"github.com/spf13/cobra"
 	"log"
 	"strconv"
@@ -18,15 +19,15 @@ func init() {
 
 func PerformTransaction(_ *cobra.Command, args []string) {
 	userName := args[0]
-	user := userDao.GetUser(userName)
+	user := cmd.UserDao.GetUser(userName)
 	merchantName := args[1]
 	amt, _ := strconv.Atoi(args[2])
 
 	if user.CreditLimit-user.Dues >= amt {
-		if e := txnDao.CreateTxnEntry(userName, merchantName, amt); e != nil {
+		if e := cmd.TxnDao.CreateTxnEntry(userName, merchantName, amt); e != nil {
 			log.Fatal(e)
 		} else {
-			userDao.IncrementDues(user, amt)
+			cmd.UserDao.IncrementDues(user, amt)
 		}
 	}
 

@@ -1,6 +1,7 @@
 package cmd
 
 import (
+	"github.com/abdulrahmank/pay_later/cmd"
 	"github.com/spf13/cobra"
 	"log"
 	"strconv"
@@ -22,6 +23,6 @@ func AddNewUser(_ *cobra.Command, arg []string) {
 	if creditLimit, err := strconv.Atoi(arg[2]); err != nil {
 		log.Printf("Invalid input")
 	} else {
-		userDao.SaveUser(userName, emailId, creditLimit)
+		cmd.UserDao.SaveUser(userName, emailId, creditLimit)
 	}
 }
