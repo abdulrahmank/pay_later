@@ -14,5 +14,5 @@ func TestUpdateMerchant(t *testing.T) {
 	cmd.MerchantDao = dao
 	dao.EXPECT().UpdateMerchant("m1", 30).Times(1)
 
-	Update(nil, []string{"m1", "30"})
+	Update(nil, []string{"m1", "30%"})
 }

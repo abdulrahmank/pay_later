@@ -5,6 +5,7 @@ import (
 	"github.com/spf13/cobra"
 	"log"
 	"strconv"
+	"strings"
 )
 
 var cmdUpdateMerchant = &cobra.Command{
@@ -18,7 +19,7 @@ func init() {
 }
 
 func Update(_ *cobra.Command, args []string) {
-	discount, e := strconv.Atoi(args[1])
+	discount, e := strconv.Atoi(strings.Replace(args[1], "%", "", 1))
 	if e != nil {
 		log.Fatal(e)
 	}
