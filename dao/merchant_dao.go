@@ -17,14 +17,14 @@ type MerchantDao interface {
 type MerchantDaoImpl struct{}
 
 func (m *MerchantDaoImpl) SaveMerchant(name string, discount float32) error {
-	if _, e := db.Exec(fmt.Sprintf("INSERT INTO merchants VALUES ('%s', %d)", name, discount)); e != nil {
+	if _, e := db.Exec(fmt.Sprintf("INSERT INTO merchants VALUES ('%s', %f)", name, discount)); e != nil {
 		return e
 	}
 	return nil
 }
 
 func (m *MerchantDaoImpl) UpdateMerchant(name string, discount float32) error {
-	if _, e := db.Exec(fmt.Sprintf("UPDATE merchants SET discount = %d WHERE name = '%s'", discount, name)); e != nil {
+	if _, e := db.Exec(fmt.Sprintf("UPDATE merchants SET discount = %f WHERE name = '%s'", discount, name)); e != nil {
 		return e
 	}
 	return nil
@@ -44,8 +44,8 @@ func (m *MerchantDaoImpl) GetMerchantDetails(name string) *model.Merchant {
 		return nil
 	} else {
 		for _, txn := range txns {
-			amt, _ := strconv.Atoi(txn)
-			merchant.Txns = append(merchant.Txns, amt)
+			amt, _ := strconv.ParseFloat(txn, 32)
+			merchant.Txns = append(merchant.Txns, float32(amt))
 		}
 		return merchant
 	}

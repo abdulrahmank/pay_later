@@ -16,8 +16,10 @@ func TestShouldSaveNewMerchant(t *testing.T) {
 	Reinit()
 	t.Run("Should be able to save new merchant", func(t *testing.T) {
 		dao := MerchantDaoImpl{}
-		e := dao.SaveMerchant("m1", 10)
-
+		e := dao.SaveMerchant("m1", float32(10))
+		if e != nil {
+			log.Print(e)
+		}
 		var count int
 		rows, _ := db.Query("Select count(*) from merchants where name = 'm1'")
 		rows.Next()
@@ -38,17 +40,17 @@ func TestShouldSaveNewMerchant(t *testing.T) {
 
 func TestShouldUpdateMerchantDiscounts(t *testing.T) {
 	dao := MerchantDaoImpl{}
-	_ = dao.SaveMerchant("m1", 10)
+	_ = dao.SaveMerchant("m1", float32(10))
 
-	dao.UpdateMerchant("m1", 20)
+	dao.UpdateMerchant("m1", float32(20))
 
 	rows, _ := db.Query(fmt.Sprintf("select discount from merchants where name='%s'", "m1"))
 	rows.Next()
-	var discount int
+	var discount float32
 	rows.Scan(&discount)
 
-	if discount != 20 {
-		t.Errorf("Expected %d, but was %d", 20, discount)
+	if discount != float32(20) {
+		t.Errorf("Expected %f, but was %f", float32(20), discount)
 	}
 }
 
@@ -68,10 +70,10 @@ func TestGetMerchantDetails(t *testing.T) {
 		t.Errorf("Expected %s, but was %s", "m1", merchantDetails.Name)
 	}
 	if merchantDetails.Discount != 10 {
-		t.Errorf("Expected %d, but was %d", 10, merchantDetails.Discount)
+		t.Errorf("Expected %d, but was %f", 10, merchantDetails.Discount)
 	}
 
-	expected := []int{100, 300, 500}
+	expected := []float32{100, 300, 500}
 	for i, val := range expected {
 		if merchantDetails.Txns[i] != val {
 			t.Errorf("Expected %v, but was %v", "m1", merchantDetails.Txns)

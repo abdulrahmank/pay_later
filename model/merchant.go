@@ -2,6 +2,6 @@ package model
 
 type Merchant struct {
 	Name     string
-	Discount int
-	Txns     []int
+	Discount float32
+	Txns     []float32
 }

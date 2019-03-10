@@ -23,7 +23,7 @@ func GetDiscounts(_ *cobra.Command, args []string) {
 func getDiscounts(merchantName string) float32 {
 	merchantDetails := cmd.MerchantDao.GetMerchantDetails(merchantName)
 
-	totalTxnAmt := 0
+	totalTxnAmt := float32(0)
 	for _, val := range merchantDetails.Txns {
 		totalTxnAmt += val
 	}

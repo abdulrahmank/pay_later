@@ -12,7 +12,7 @@ func TestGetDiscounts(t *testing.T) {
 	ctrl := gomock.NewController(t)
 	mDao := dao.NewMockMerchantDao(ctrl)
 	cmd.MerchantDao = mDao
-	merchant := &model.Merchant{Name: "m1", Discount: 20, Txns: []int{400, 500, 543}}
+	merchant := &model.Merchant{Name: "m1", Discount: 20, Txns: []float32{400, 500, 543}}
 	mDao.EXPECT().GetMerchantDetails("m1").Return(merchant)
 
 	actual := getDiscounts("m1")
