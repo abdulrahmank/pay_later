@@ -12,7 +12,7 @@ func TestUpdateMerchant(t *testing.T) {
 	defer ctrl.Finish()
 	dao := dao.NewMockMerchantDao(ctrl)
 	cmd.MerchantDao = dao
-	dao.EXPECT().UpdateMerchant("m1", 30).Times(1)
+	dao.EXPECT().UpdateMerchant("m1", float32(30)).Times(1)
 
 	Update(nil, []string{"m1", "30%"})
 }

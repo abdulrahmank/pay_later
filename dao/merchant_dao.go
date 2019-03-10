@@ -9,21 +9,21 @@ import (
 )
 
 type MerchantDao interface {
-	SaveMerchant(name string, discount int) error
-	UpdateMerchant(name string, discount int) error
+	SaveMerchant(name string, discount float32) error
+	UpdateMerchant(name string, discount float32) error
 	GetMerchantDetails(name string) *model.Merchant
 }
 
 type MerchantDaoImpl struct{}
 
-func (m *MerchantDaoImpl) SaveMerchant(name string, discount int) error {
+func (m *MerchantDaoImpl) SaveMerchant(name string, discount float32) error {
 	if _, e := db.Exec(fmt.Sprintf("INSERT INTO merchants VALUES ('%s', %d)", name, discount)); e != nil {
 		return e
 	}
 	return nil
 }
 
-func (m *MerchantDaoImpl) UpdateMerchant(name string, discount int) error {
+func (m *MerchantDaoImpl) UpdateMerchant(name string, discount float32) error {
 	if _, e := db.Exec(fmt.Sprintf("UPDATE merchants SET discount = %d WHERE name = '%s'", discount, name)); e != nil {
 		return e
 	}

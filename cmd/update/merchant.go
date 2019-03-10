@@ -19,9 +19,9 @@ func init() {
 }
 
 func Update(_ *cobra.Command, args []string) {
-	discount, e := strconv.Atoi(strings.Replace(args[1], "%", "", 1))
+	discount, e := strconv.ParseFloat(strings.Replace(args[1], "%", "", 1), 32)
 	if e != nil {
 		log.Fatal(e)
 	}
-	cmd.MerchantDao.UpdateMerchant(args[0], discount)
+	cmd.MerchantDao.UpdateMerchant(args[0], float32(discount))
 }

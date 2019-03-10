@@ -34,7 +34,7 @@ func (m *MockMerchantDao) EXPECT() *MockMerchantDaoMockRecorder {
 }
 
 // SaveMerchant mocks base method
-func (m *MockMerchantDao) SaveMerchant(name string, discount int) error {
+func (m *MockMerchantDao) SaveMerchant(name string, discount float32) error {
 	ret := m.ctrl.Call(m, "SaveMerchant", name, discount)
 	ret0, _ := ret[0].(error)
 	return ret0
@@ -46,7 +46,7 @@ func (mr *MockMerchantDaoMockRecorder) SaveMerchant(name, discount interface{}) 
 }
 
 // UpdateMerchant mocks base method
-func (m *MockMerchantDao) UpdateMerchant(name string, discount int) error {
+func (m *MockMerchantDao) UpdateMerchant(name string, discount float32) error {
 	ret := m.ctrl.Call(m, "UpdateMerchant", name, discount)
 	ret0, _ := ret[0].(error)
 	return ret0
