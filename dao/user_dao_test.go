@@ -21,6 +21,7 @@ func TestMain(m *testing.M) {
 }
 
 func TestShouldSaveNewUser(t *testing.T) {
+	db.Exec("TRUNCATE users")
 	dao := UserDaoImpl{}
 	e := dao.SaveUser("u1", "u1@email.in", 1000)
 
@@ -58,6 +59,7 @@ func TestShouldGetUser(t *testing.T) {
 }
 
 func TestShouldGetAllUsers(t *testing.T) {
+	db.Exec("TRUNCATE users")
 	dao := UserDaoImpl{}
 	names := []string{"u1", "u2"}
 	mailIds := []string{"u1@email.in", "u2@email.in"}
@@ -75,7 +77,7 @@ func TestShouldGetAllUsers(t *testing.T) {
 			t.Errorf("Expected this %s but was %s", mailIds[i], user.MailId)
 		}
 		if user.CreditLimit != creditLimits[i] {
-			t.Errorf("Expected this %d but was %f", creditLimits[i], user.CreditLimit)
+			t.Errorf("Expected this %f but was %f", creditLimits[i], user.CreditLimit)
 		}
 	}
 }
@@ -84,7 +86,10 @@ func TestShouldIncrementDueAmount(t *testing.T) {
 	dao := UserDaoImpl{}
 	dao.SaveUser("u1", "u1@email.in", 1000)
 
-	dao.IncrementDues(&model.User{Name:"u1", Dues:200}, 200)
+	err := dao.IncrementDues(&model.User{Name: "u1", Dues: 200}, 200)
+	if err != nil {
+		t.Errorf("Expected nil but was %v", err)
+	}
 
 	user := dao.GetUser("u1")
 	if user.Dues != 400 {

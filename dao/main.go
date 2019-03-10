@@ -22,7 +22,6 @@ func getPSQlInfo() string {
 			"dbname=%s sslmode=disable password=%s",
 			host, port, user, dbname, password)
 	}
-	log.Println(fmt.Sprintf("psqlinfo: %s", psqlInfo))
 	return psqlInfo
 }
 

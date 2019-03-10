@@ -58,8 +58,10 @@ func (mr *MockUserDaoMockRecorder) GetUser(name interface{}) *gomock.Call {
 }
 
 // IncrementDues mocks base method
-func (m *MockUserDao) IncrementDues(user *model.User, txnAmt float32) {
-	m.ctrl.Call(m, "IncrementDues", user, txnAmt)
+func (m *MockUserDao) IncrementDues(user *model.User, txnAmt float32) error {
+	ret := m.ctrl.Call(m, "IncrementDues", user, txnAmt)
+	ret0, _ := ret[0].(error)
+	return ret0
 }
 
 // IncrementDues indicates an expected call of IncrementDues

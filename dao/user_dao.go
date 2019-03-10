@@ -9,7 +9,7 @@ import (
 type UserDao interface {
 	SaveUser(name, mailId string, creditLimit float32) error
 	GetUser(name string) *model.User
-	IncrementDues(user *model.User, txnAmt float32)
+	IncrementDues(user *model.User, txnAmt float32) error
 	GetAllUsers() []*model.User
 }
 
@@ -37,11 +37,12 @@ func (u *UserDaoImpl) GetUser(name string) *model.User {
 	return &user
 }
 
-func (u *UserDaoImpl) IncrementDues(user *model.User, txnAmt float32) {
+func (u *UserDaoImpl) IncrementDues(user *model.User, txnAmt float32) error {
 	_, e := db.Exec(fmt.Sprintf("UPDATE users SET dues = %f WHERE name = '%s'", user.Dues+txnAmt, user.Name))
 	if e != nil {
-		log.Fatal(e)
+		return e
 	}
+	return nil
 }
 
 func (u *UserDaoImpl) GetAllUsers() []*model.User {

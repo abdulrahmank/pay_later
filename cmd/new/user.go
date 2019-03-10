@@ -24,5 +24,6 @@ func AddNewUser(_ *cobra.Command, arg []string) {
 		log.Printf("Invalid input")
 	} else {
 		cmd.UserDao.SaveUser(userName, emailId, float32(creditLimit))
+		log.Printf("%s(%f)\n", userName, float32(creditLimit))
 	}
 }

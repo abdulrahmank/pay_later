@@ -26,5 +26,6 @@ func AddNewMerchant(_ *cobra.Command, arg []string) {
 		log.Println("Invalid discount")
 	} else {
 		cmd.MerchantDao.SaveMerchant(merchantName, float32(discountNum))
+		log.Printf("%s(%f)\n", merchantName, float32(discountNum))
 	}
 }

@@ -19,8 +19,10 @@ func init() {
 func GetTotalDues(_ *cobra.Command, _ []string) {
 	totalDues := float32(0)
 	for _, val := range cmd.UserDao.GetAllUsers() {
-		log.Printf("%s: %f", val.Name, val.Dues)
-		totalDues = totalDues + val.Dues
+		if val.Dues > float32(0) {
+			log.Printf("%s: %f", val.Name, val.Dues)
+			totalDues = totalDues + val.Dues
+		}
 	}
-	log.Printf("Total due amount: %f", totalDues)
+	log.Printf("total: %f", totalDues)
 }

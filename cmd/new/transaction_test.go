@@ -25,7 +25,10 @@ func TestPerformNewTransaction(t *testing.T) {
 	uDao.EXPECT().GetUser("u1").Return(&user)
 	uDao.EXPECT().IncrementDues(&user, float32(900)).Times(1)
 
-	PerformTransaction(nil, []string{userName, merchantName, txnAmt})
+	transactionSuccess := performTransaction([]string{userName, merchantName, txnAmt})
+	if transactionSuccess != nil {
+		t.Errorf("Expected nil but was %v", transactionSuccess)
+	}
 }
 
 func TestShouldNotPerformNewTransactionIfLowUserCredit(t *testing.T) {
@@ -45,5 +48,8 @@ func TestShouldNotPerformNewTransactionIfLowUserCredit(t *testing.T) {
 	uDao.EXPECT().GetUser("u1").Return(user)
 	uDao.EXPECT().IncrementDues(gomock.Any(), gomock.Any()).Times(0)
 
-	PerformTransaction(nil, []string{userName, merchantName, txnAmt})
+	transactionSuccess := performTransaction([]string{userName, merchantName, txnAmt})
+	if transactionSuccess == nil {
+		t.Error("Expected not nil but was nil")
+	}
 }
